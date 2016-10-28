@@ -230,6 +230,7 @@
             this.bComa.TabStop = false;
             this.bComa.Text = ",";
             this.bComa.UseVisualStyleBackColor = true;
+            this.bComa.MouseUp += new System.Windows.Forms.MouseEventHandler(this.bComa_MouseUp);
             // 
             // bCero
             // 

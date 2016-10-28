@@ -135,7 +135,7 @@ namespace Calculadora
             lblResultat.Text = "";
             //se coge el valor de la tecla presionada que es igual a la operacion
             operacion = valorTecla;
-            
+            coma = false;
             //operacionFlag = true; <-- Innecesario
 
 
@@ -203,6 +203,7 @@ namespace Calculadora
         private void bC_MouseUp(object sender, MouseEventArgs e)
         {
             lblResultat.Text = "0";
+            this.KeyPreview = true;
         }
 
         private void bBorrar_MouseUp(object sender, MouseEventArgs e)
@@ -339,6 +340,17 @@ namespace Calculadora
             coma = false;
             num1 = 0;
             num2 = 0;
+            this.KeyPreview = true;
+        }
+        private void bComa_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (!coma)
+            //compruebo si la coma ya se ha utilizado
+            {
+                lblResultat.Text = lblResultat.Text + ",";
+                coma = true;
+                this.KeyPreview = true;
+            }
         }
 
         //Botones numeros                                           <------------------------------------------
@@ -538,15 +550,27 @@ namespace Calculadora
         }
         private void cogerValor(int valor)
         {
-
-            lblResultat.Text += Convert.ToString(valor - ((int)Keys.NumPad0));
+            if (lblResultat.Text == "0")
+            {
+                lblResultat.Text = Convert.ToString(valor - ((int)Keys.NumPad0));
+            }
+            else
+            {
+                lblResultat.Text += Convert.ToString(valor - ((int)Keys.NumPad0));
+            }
+            
            
         }
         private void cogerBValor(int bNum)
         {
-            
+            if (lblResultat.Text == "0")
+            {
                 lblResultat.Text = Convert.ToString(bNum);
-
+            }
+            else
+            {
+                lblResultat.Text += Convert.ToString(bNum);
+            }
         }
 
         private void operacionesB (int valor)
