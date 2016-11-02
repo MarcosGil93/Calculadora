@@ -88,7 +88,7 @@ namespace Calculadora
             else if (e.KeyCode == Keys.Decimal)
             {
                 if (!coma)
-                    //compruebo si la coma ya se ha utilizado
+                    //compruebo si la coma ya se ha utilizado.
                 {
                     lblResultat.Text = lblResultat.Text + ",";
                     coma = true;
@@ -105,7 +105,7 @@ namespace Calculadora
                     final = true;
                 }else
                 {
-                    //en caso que se presione enter por segunda vez se reinician las operaciones
+                    //en caso que se presione enter por segunda vez se reinician las operaciones.
                     lblOperacion.Text = "0";
                     lblResultat.Text = "0";
                     operacionFlag = false;
@@ -170,7 +170,7 @@ namespace Calculadora
                 {
                     lblResultat.Text = Convert.ToString(resultado);
                 }
-                
+                //buscarOperador sirve para encontrar el simbolo en char del operador a utilizado.
                 buscarOperador();
                
                 operacionFlag = true;
@@ -223,6 +223,7 @@ namespace Calculadora
                 //compruebo si es una operacion nueva, antes de hacerla debe coger un valor 
                 if (operacionFlag2)
                 {
+                    //si ya se ha hecho una operación pero se quiere continuar haciendo otra, operacionFlag2 estará en true
                     num1 = resultado;
                     hacerOperacion();
                 }
@@ -309,6 +310,7 @@ namespace Calculadora
         {
             if (!final)
             {
+                // si final aun no está en true quiere decir que es la primera vez que se aprieta el igual
                 hacerOperacion();
                 num1 = resultado;
                 operacionFlag = false;
@@ -317,6 +319,7 @@ namespace Calculadora
             }
             else
             {
+                //la segunda vez se reiniciaran todos los valores de la calculadora. 
                 lblOperacion.Text = "0";
                 lblResultat.Text = "0";
                 operacionFlag = false;
@@ -535,12 +538,14 @@ namespace Calculadora
         {
             if (cambiarOperador)
             {
+                //comprobar si ya hay un operador en uso y hacer el cambio.
                 operacion = valor;
                 borrar();
 
             }
             else
             {
+                //en caso de no haber se coge directamente el que se haya introducido.
                 operaciones(valor);
 
             }
