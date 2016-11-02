@@ -26,6 +26,7 @@ namespace Calculadora
         private bool final;
         private bool coma;
         private bool error;
+        private bool cambiarOperador;
         private String mensaje;
         private float resultado;
 
@@ -59,12 +60,13 @@ namespace Calculadora
             }
             else if (e.KeyCode == Keys.Add || e.KeyCode == Keys.Divide || e.KeyCode == Keys.Multiply || e.KeyCode == Keys.Subtract)
             {
+                
                 if (final)
                 {
                     final = false;
                 }
                 cogerOperador(e.KeyValue);
-                
+                cambiarOperador = true;
                 if (operacionFlag)
                 {
                     lblOperacion.Text = Convert.ToString(num1)+Convert.ToString(operador);
@@ -117,10 +119,6 @@ namespace Calculadora
                 
             } else if (e.KeyCode == Keys.Back)
             {
-                //operacionFlag = false;
-               // resultado = 0;
-               // num1 = 0;
-                //num2 = 0;
                 borrar1pos();
             }
 
@@ -130,7 +128,7 @@ namespace Calculadora
         private void operaciones(int valorTecla)
         {
             //una vez que se escoge una operacion se coge el valor de lblResultat i se convierte a float. Ya se controla en el inicio que no se puedan introducir numeros. 
-             float.TryParse(lblResultat.Text, out num1);
+            float.TryParse(lblResultat.Text, out num1);
             //una vez que se ha cogido su valor, se reinicia lblResultat.
             lblResultat.Text = "";
             //se coge el valor de la tecla presionada que es igual a la operacion
@@ -177,7 +175,7 @@ namespace Calculadora
                
                 operacionFlag = true;
                 comienzo = true;
-                
+                cambiarOperador = false;
 
             } else
             {
@@ -535,7 +533,7 @@ namespace Calculadora
         }
         private void cogerOperador (int valor)
         {
-            if (operacionFlag || operacionFlag2)
+            if (cambiarOperador)
             {
                 operacion = valor;
                 borrar();
