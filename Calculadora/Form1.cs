@@ -355,119 +355,19 @@ namespace Calculadora
         }
 
         //Botones numeros                                           <------------------------------------------
+        private void buttonsNumero_MouseUp(object sender, MouseEventArgs e)
+        {
+           Button botonNumero = (Button)sender;
+            cogerBValor(int.Parse(botonNumero.Text));
+ 
+            if (operacionFlag)
+            {
+                //si la respuesta es afirmativa activo otra bandera
+                operacionFlag2 = true;
+            }
 
-        private void bCero_MouseUp(object sender, MouseEventArgs e)
-        {
-            cogerBValor(0);
-            if (operacionFlag)
-            {
-                //si la respuesta es afirmativa activo otra bandera
-                operacionFlag2 = true;
-            }
-            
             this.KeyPreview = true;
-           
         }
-        private void bUno_MouseUp(object sender, MouseEventArgs e)
-        {
-            cogerBValor(1);
-            if (operacionFlag)
-            {
-                //si la respuesta es afirmativa activo otra bandera
-                operacionFlag2 = true;
-            }
-            this.KeyPreview = true;
-           
-        }
-        private void bDos_MouseUp(object sender, MouseEventArgs e)
-        {
-            cogerBValor(2);
-            if (operacionFlag)
-            {
-                //si la respuesta es afirmativa activo otra bandera
-                operacionFlag2 = true;
-            }
-            this.KeyPreview = true;
-           
-        }
-        private void bTres_MouseUp(object sender, MouseEventArgs e)
-        {
-            cogerBValor(3);
-            if (operacionFlag)
-            {
-                //si la respuesta es afirmativa activo otra bandera
-                operacionFlag2 = true;
-            }
-            this.KeyPreview = true;
-            
-        }
-        private void bCuatro_MouseUp(object sender, MouseEventArgs e)
-        {
-            cogerBValor(4);
-            if (operacionFlag)
-            {
-                //si la respuesta es afirmativa activo otra bandera
-                operacionFlag2 = true;
-            }
-            this.KeyPreview = true;
-            
-        }
-        private void bCinco_MouseUp(object sender, MouseEventArgs e)
-        {
-            cogerBValor(5);
-            if (operacionFlag)
-            {
-                //si la respuesta es afirmativa activo otra bandera
-                operacionFlag2 = true;
-            }
-            this.KeyPreview = true;
-            
-        }
-        private void bSeis_MouseUp(object sender, MouseEventArgs e)
-        {
-            cogerBValor(6);
-            if (operacionFlag)
-            {
-                //si la respuesta es afirmativa activo otra bandera
-                operacionFlag2 = true;
-            }
-            this.KeyPreview = true;
-            
-        }
-        private void bSiete_MouseUp(object sender, MouseEventArgs e)
-        {
-            cogerBValor(7);
-            if (operacionFlag)
-            {
-                //si la respuesta es afirmativa activo otra bandera
-                operacionFlag2 = true;
-            }
-            this.KeyPreview = true;
-            
-        }
-        private void bOcho_MouseUp(object sender, MouseEventArgs e)
-        {
-            cogerBValor(8);
-            if (operacionFlag)
-            {
-                //si la respuesta es afirmativa activo otra bandera
-                operacionFlag2 = true;
-            }
-            this.KeyPreview = true;
-           
-        }
-        private void bNueve_MouseUp(object sender, MouseEventArgs e)
-        {
-            cogerBValor(9);
-            if (operacionFlag)
-            {
-                //si la respuesta es afirmativa activo otra bandera
-                operacionFlag2 = true;
-            }
-            this.KeyPreview = true;
-           
-        }
-        
        
         private void buscarOperador()
          {
@@ -486,10 +386,12 @@ namespace Calculadora
                     operador = '/';
                     break;
              }
-     }
+        }
      
         private void borrar()
         {
+            String cambioLabel = "";
+
             if((lblOperacion.Text.Length == 1 || comienzo == true))
             {
                 lblOperacion.Text = "0";

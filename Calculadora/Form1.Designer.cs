@@ -83,7 +83,7 @@
             this.bSiete.TabStop = false;
             this.bSiete.Text = "7";
             this.bSiete.UseVisualStyleBackColor = true;
-            this.bSiete.MouseUp += new System.Windows.Forms.MouseEventHandler(this.bSiete_MouseUp);
+            this.bSiete.MouseUp += new System.Windows.Forms.MouseEventHandler(this.buttonsNumero_MouseUp);
             // 
             // bMultiplicacion
             // 
@@ -105,7 +105,7 @@
             this.bNueve.TabStop = false;
             this.bNueve.Text = "9";
             this.bNueve.UseVisualStyleBackColor = true;
-            this.bNueve.MouseUp += new System.Windows.Forms.MouseEventHandler(this.bNueve_MouseUp);
+            this.bNueve.MouseUp += new System.Windows.Forms.MouseEventHandler(this.buttonsNumero_MouseUp);
             // 
             // bOcho
             // 
@@ -116,7 +116,7 @@
             this.bOcho.TabStop = false;
             this.bOcho.Text = "8";
             this.bOcho.UseVisualStyleBackColor = true;
-            this.bOcho.MouseUp += new System.Windows.Forms.MouseEventHandler(this.bOcho_MouseUp);
+            this.bOcho.MouseUp += new System.Windows.Forms.MouseEventHandler(this.buttonsNumero_MouseUp);
             // 
             // bSeis
             // 
@@ -127,7 +127,7 @@
             this.bSeis.TabStop = false;
             this.bSeis.Text = "6";
             this.bSeis.UseVisualStyleBackColor = true;
-            this.bSeis.MouseUp += new System.Windows.Forms.MouseEventHandler(this.bSeis_MouseUp);
+            this.bSeis.MouseUp += new System.Windows.Forms.MouseEventHandler(this.buttonsNumero_MouseUp);
             // 
             // bResta
             // 
@@ -150,7 +150,7 @@
             this.bCinco.TabStop = false;
             this.bCinco.Text = "5";
             this.bCinco.UseVisualStyleBackColor = true;
-            this.bCinco.MouseUp += new System.Windows.Forms.MouseEventHandler(this.bCinco_MouseUp);
+            this.bCinco.MouseUp += new System.Windows.Forms.MouseEventHandler(this.buttonsNumero_MouseUp);
             // 
             // bCuatro
             // 
@@ -161,7 +161,7 @@
             this.bCuatro.TabStop = false;
             this.bCuatro.Text = "4";
             this.bCuatro.UseVisualStyleBackColor = true;
-            this.bCuatro.MouseUp += new System.Windows.Forms.MouseEventHandler(this.bCuatro_MouseUp);
+            this.bCuatro.MouseUp += new System.Windows.Forms.MouseEventHandler(this.buttonsNumero_MouseUp);
             // 
             // bSuma
             // 
@@ -184,7 +184,7 @@
             this.bTres.TabStop = false;
             this.bTres.Text = "3";
             this.bTres.UseVisualStyleBackColor = true;
-            this.bTres.MouseUp += new System.Windows.Forms.MouseEventHandler(this.bTres_MouseUp);
+            this.bTres.MouseUp += new System.Windows.Forms.MouseEventHandler(this.buttonsNumero_MouseUp);
             // 
             // bDos
             // 
@@ -195,7 +195,7 @@
             this.bDos.TabStop = false;
             this.bDos.Text = "2";
             this.bDos.UseVisualStyleBackColor = true;
-            this.bDos.MouseUp += new System.Windows.Forms.MouseEventHandler(this.bDos_MouseUp);
+            this.bDos.MouseUp += new System.Windows.Forms.MouseEventHandler(this.buttonsNumero_MouseUp);
             // 
             // bUno
             // 
@@ -206,7 +206,7 @@
             this.bUno.TabStop = false;
             this.bUno.Text = "1";
             this.bUno.UseVisualStyleBackColor = true;
-            this.bUno.MouseUp += new System.Windows.Forms.MouseEventHandler(this.bUno_MouseUp);
+            this.bUno.MouseUp += new System.Windows.Forms.MouseEventHandler(this.buttonsNumero_MouseUp);
             // 
             // bIgual
             // 
@@ -241,7 +241,7 @@
             this.bCero.TabStop = false;
             this.bCero.Text = "0";
             this.bCero.UseVisualStyleBackColor = true;
-            this.bCero.MouseUp += new System.Windows.Forms.MouseEventHandler(this.bCero_MouseUp);
+            this.bCero.MouseUp += new System.Windows.Forms.MouseEventHandler(this.buttonsNumero_MouseUp);
             // 
             // bMasMenos
             // 
