@@ -83,18 +83,19 @@
             this.bSiete.TabStop = false;
             this.bSiete.Text = "7";
             this.bSiete.UseVisualStyleBackColor = true;
-            this.bSiete.MouseUp += new System.Windows.Forms.MouseEventHandler(this.buttonsNumero_MouseUp);
+            this.bSiete.MouseUp += new System.Windows.Forms.MouseEventHandler(this.botonesNumero_MouseUp);
             // 
             // bMultiplicacion
             // 
+            this.bMultiplicacion.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F);
             this.bMultiplicacion.Location = new System.Drawing.Point(195, 216);
             this.bMultiplicacion.Name = "bMultiplicacion";
             this.bMultiplicacion.Size = new System.Drawing.Size(55, 55);
             this.bMultiplicacion.TabIndex = 3;
             this.bMultiplicacion.TabStop = false;
-            this.bMultiplicacion.Text = "X";
+            this.bMultiplicacion.Text = "*";
             this.bMultiplicacion.UseVisualStyleBackColor = true;
-            this.bMultiplicacion.MouseUp += new System.Windows.Forms.MouseEventHandler(this.bMultiplicacion_MouseUp);
+            this.bMultiplicacion.MouseUp += new System.Windows.Forms.MouseEventHandler(this.botonesOperaciones_MouseUp);
             // 
             // bNueve
             // 
@@ -105,7 +106,7 @@
             this.bNueve.TabStop = false;
             this.bNueve.Text = "9";
             this.bNueve.UseVisualStyleBackColor = true;
-            this.bNueve.MouseUp += new System.Windows.Forms.MouseEventHandler(this.buttonsNumero_MouseUp);
+            this.bNueve.MouseUp += new System.Windows.Forms.MouseEventHandler(this.botonesNumero_MouseUp);
             // 
             // bOcho
             // 
@@ -116,7 +117,7 @@
             this.bOcho.TabStop = false;
             this.bOcho.Text = "8";
             this.bOcho.UseVisualStyleBackColor = true;
-            this.bOcho.MouseUp += new System.Windows.Forms.MouseEventHandler(this.buttonsNumero_MouseUp);
+            this.bOcho.MouseUp += new System.Windows.Forms.MouseEventHandler(this.botonesNumero_MouseUp);
             // 
             // bSeis
             // 
@@ -127,7 +128,7 @@
             this.bSeis.TabStop = false;
             this.bSeis.Text = "6";
             this.bSeis.UseVisualStyleBackColor = true;
-            this.bSeis.MouseUp += new System.Windows.Forms.MouseEventHandler(this.buttonsNumero_MouseUp);
+            this.bSeis.MouseUp += new System.Windows.Forms.MouseEventHandler(this.botonesNumero_MouseUp);
             // 
             // bResta
             // 
@@ -139,7 +140,7 @@
             this.bResta.TabStop = false;
             this.bResta.Text = "-";
             this.bResta.UseVisualStyleBackColor = true;
-            this.bResta.MouseUp += new System.Windows.Forms.MouseEventHandler(this.bResta_MouseUp);
+            this.bResta.MouseUp += new System.Windows.Forms.MouseEventHandler(this.botonesOperaciones_MouseUp);
             // 
             // bCinco
             // 
@@ -150,7 +151,7 @@
             this.bCinco.TabStop = false;
             this.bCinco.Text = "5";
             this.bCinco.UseVisualStyleBackColor = true;
-            this.bCinco.MouseUp += new System.Windows.Forms.MouseEventHandler(this.buttonsNumero_MouseUp);
+            this.bCinco.MouseUp += new System.Windows.Forms.MouseEventHandler(this.botonesNumero_MouseUp);
             // 
             // bCuatro
             // 
@@ -161,7 +162,7 @@
             this.bCuatro.TabStop = false;
             this.bCuatro.Text = "4";
             this.bCuatro.UseVisualStyleBackColor = true;
-            this.bCuatro.MouseUp += new System.Windows.Forms.MouseEventHandler(this.buttonsNumero_MouseUp);
+            this.bCuatro.MouseUp += new System.Windows.Forms.MouseEventHandler(this.botonesNumero_MouseUp);
             // 
             // bSuma
             // 
@@ -173,7 +174,7 @@
             this.bSuma.TabStop = false;
             this.bSuma.Text = "+";
             this.bSuma.UseVisualStyleBackColor = true;
-            this.bSuma.MouseUp += new System.Windows.Forms.MouseEventHandler(this.bSuma_MouseUp);
+            this.bSuma.MouseUp += new System.Windows.Forms.MouseEventHandler(this.botonesOperaciones_MouseUp);
             // 
             // bTres
             // 
@@ -184,7 +185,7 @@
             this.bTres.TabStop = false;
             this.bTres.Text = "3";
             this.bTres.UseVisualStyleBackColor = true;
-            this.bTres.MouseUp += new System.Windows.Forms.MouseEventHandler(this.buttonsNumero_MouseUp);
+            this.bTres.MouseUp += new System.Windows.Forms.MouseEventHandler(this.botonesNumero_MouseUp);
             // 
             // bDos
             // 
@@ -195,7 +196,7 @@
             this.bDos.TabStop = false;
             this.bDos.Text = "2";
             this.bDos.UseVisualStyleBackColor = true;
-            this.bDos.MouseUp += new System.Windows.Forms.MouseEventHandler(this.buttonsNumero_MouseUp);
+            this.bDos.MouseUp += new System.Windows.Forms.MouseEventHandler(this.botonesNumero_MouseUp);
             // 
             // bUno
             // 
@@ -206,7 +207,7 @@
             this.bUno.TabStop = false;
             this.bUno.Text = "1";
             this.bUno.UseVisualStyleBackColor = true;
-            this.bUno.MouseUp += new System.Windows.Forms.MouseEventHandler(this.buttonsNumero_MouseUp);
+            this.bUno.MouseUp += new System.Windows.Forms.MouseEventHandler(this.botonesNumero_MouseUp);
             // 
             // bIgual
             // 
@@ -241,7 +242,7 @@
             this.bCero.TabStop = false;
             this.bCero.Text = "0";
             this.bCero.UseVisualStyleBackColor = true;
-            this.bCero.MouseUp += new System.Windows.Forms.MouseEventHandler(this.buttonsNumero_MouseUp);
+            this.bCero.MouseUp += new System.Windows.Forms.MouseEventHandler(this.botonesNumero_MouseUp);
             // 
             // bMasMenos
             // 
@@ -262,7 +263,7 @@
             this.bDividir.TabStop = false;
             this.bDividir.Text = "/";
             this.bDividir.UseVisualStyleBackColor = true;
-            this.bDividir.MouseUp += new System.Windows.Forms.MouseEventHandler(this.bDividir_MouseUp);
+            this.bDividir.MouseUp += new System.Windows.Forms.MouseEventHandler(this.botonesOperaciones_MouseUp);
             // 
             // bBorrar
             // 

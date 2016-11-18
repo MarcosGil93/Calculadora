@@ -16,25 +16,22 @@ namespace Calculadora
         {
             InitializeComponent();
         }
-        private float num1;
-        private float num2;
-        private char operador;
-        private int operacion;
+       
         private bool operacionFlag;
         private bool operacionFlag2;
         private bool comienzo;
+        //La variable final marca cuando se ha hecho una operación y da paso a la siguiente en caso de que se presione otra operación sin entrar numeros nuevos.
         private bool final;
         private bool coma;
         private bool error;
         private bool cambiarOperador;
-        private String mensaje;
-        private float resultado;
+        
+
+        Calculadora calculadora;
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            num1 = 0;
-            num2 = 0;
-            resultado = 0;
+            
             comienzo = true;
             final = false;
             lblOperacion.Text = "0";
@@ -42,6 +39,10 @@ namespace Calculadora
             operacionFlag2 = false;
             coma = false;
             error = false;
+            calculadora = new Calculadora();
+            calculadora.setResultado(0);
+            calculadora.setOperante2(0);
+            calculadora.setOperante1(0);
         }
         private void Form1_KeyUp(object sender, KeyEventArgs e)
         {
@@ -49,14 +50,15 @@ namespace Calculadora
             if ((e.KeyCode >= Keys.D0 && e.KeyCode <= Keys.D9) || (e.KeyCode >= Keys.NumPad0 && e.KeyCode <= Keys.NumPad9))
             {
                 error = false;
-                cogerValor(e.KeyValue);
+                cogerValorTeclado(e.KeyValue);
                 //compruebo si ya se habia hecho una operacion sin presionar enter.
-                if (operacionFlag)
-                {
-                    //si la respuesta es afirmativa activo otra bandera
-                    operacionFlag2 = true;
-                }
-               
+                
+                 if (operacionFlag)
+                 {
+                     //si la respuesta es afirmativa activo otra bandera
+                     operacionFlag2 = true;
+                 }
+                
             }
             else if (e.KeyCode == Keys.Add || e.KeyCode == Keys.Divide || e.KeyCode == Keys.Multiply || e.KeyCode == Keys.Subtract)
             {
@@ -67,21 +69,31 @@ namespace Calculadora
                 }
                 cogerOperador(e.KeyValue);
                 cambiarOperador = true;
+                
+                
                 if (operacionFlag)
-                {
-                    lblOperacion.Text = Convert.ToString(num1)+Convert.ToString(operador);
+                 {
+                     lblOperacion.Text = Convert.ToString(calculadora.getOperante1()) + Convert.ToString(calculadora.getOperador());
+                    
                     //compruebo si es una operacion nueva, antes de hacerla debe coger un valor 
+
                     if (operacionFlag2)
-                    {
-                        num1 = resultado;
+                     {
+                        
+                        calculadora.setOperante1(calculadora.getResultado());
+                        calculadora.setOperante2(float.Parse(lblResultat.Text));
+                        lblOperacion.Text += Convert.ToString(calculadora.getOperante2());
                         hacerOperacion();
                     }
-                    
-                }else
-                {
-                    lblOperacion.Text = Convert.ToString(num1)+Convert.ToString(operador);
-                }
+
+                 }else
+                 {
                 
+                    lblOperacion.Text = Convert.ToString(calculadora.getOperante1()) + Convert.ToString(calculadora.getOperador());
+                }
+               
+
+                comienzo = false;
                 coma = false;
                 
             }
@@ -98,221 +110,176 @@ namespace Calculadora
             {
                 if (!final)
                 {
+                    
+                    calculadora.setOperante2(float.Parse(lblResultat.Text));
+                    lblOperacion.Text += Convert.ToString(calculadora.getOperante2());
                     hacerOperacion();
-                    num1 = resultado;
+                    calculadora.setOperante1(calculadora.getResultado());
                     operacionFlag = false;
                     operacionFlag2 = false;
                     final = true;
                 }else
                 {
                     //en caso que se presione enter por segunda vez se reinician las operaciones.
-                    lblOperacion.Text = "0";
-                    lblResultat.Text = "0";
+                    calculadora.setResultado(0);
+                    calculadora.setOperante2(0);
+                    calculadora.setOperante1(0);
                     operacionFlag = false;
                     operacionFlag2 = false;
                     final = false;
                     coma = false;
-                    num1 = 0;
-                    num2 = 0;
+                    lblOperacion.Text = Convert.ToString(calculadora.getResultado());
+                    lblResultat.Text = Convert.ToString(calculadora.getResultado());
 
                 }
                 
             } else if (e.KeyCode == Keys.Back)
             {
-                borrar1pos();
+                lblResultat.Text = borrarUnaPosicion();
             }
 
 
 
         }
-        private void operaciones(int valorTecla)
+        private int operacionesTeclado(int valorTecla)
         {
+            int operacion = 0;
             //una vez que se escoge una operacion se coge el valor de lblResultat i se convierte a float. Ya se controla en el inicio que no se puedan introducir numeros. 
-            float.TryParse(lblResultat.Text, out num1);
+            try
+            {
+                calculadora.setOperante1(float.Parse(lblResultat.Text));
+            }catch
+            {
+                calculadora.setOperante1(0); 
+            }
             //una vez que se ha cogido su valor, se reinicia lblResultat.
-            lblResultat.Text = "";
             //se coge el valor de la tecla presionada que es igual a la operacion
             operacion = valorTecla;
             coma = false;
-            //operacionFlag = true; <-- Innecesario
+            
 
+            return operacion;
+        }
+        private void operacionesBotones(int valor)
+        {
+            this.KeyPreview = true;
+            cogerOperador(valor);
+            lblOperacion.Text += calculadora.getOperador();
+            if (operacionFlag2)
+            {
+                calculadora.setOperante2(float.Parse(lblResultat.Text));
+                lblOperacion.Text += Convert.ToString(calculadora.getOperante2());
+                hacerOperacion();
 
+                operacionFlag2 = false;
+            }
+            coma = false;
         }
         private void hacerOperacion()
         {
-           
-            float.TryParse(lblResultat.Text, out num2);
-            lblOperacion.Text += Convert.ToString(num2);
-            if(num1 != 0 || num2 != 0) { 
-            switch (operador)
+            try { 
+            switch (Convert.ToChar(calculadora.getOperador()))
                 {
                     case '+':
-                        resultado = num1 + num2;
+                         calculadora.setResultado(calculadora.Sumar());
                         break;
                     case '-':
-                        resultado = num1 - num2;
+
+                    calculadora.setResultado(calculadora.Restar());
                         break;
                     case '*':
-                        resultado = num1 * num2;
+                    calculadora.setResultado(calculadora.Multiplicar());
                         break;
                     case '/':
-                        if (num2 == 0)
+                        if (calculadora.getOperante2() != 0)
                         {
-                            mensajes(1);
-                        }
-                        else
+                        calculadora.setResultado(calculadora.Dividir());
+                        }else if (calculadora.getOperante2()==0)
                         {
-                            resultado = num1 / num2;
+                            lblResultat.Text = "Error!";
+                            error = true;
                         }
                         break;
+                default:
+                    lblResultat.Text = Convert.ToString(calculadora.getResultado());
+                    break;
                 }
-               if (!error)
+            }
+            catch
+            {
+                lblResultat.Text = "Error!";
+                error = true;
+            }
+            if (!error)
                 {
-                    lblResultat.Text = Convert.ToString(resultado);
+                    
+                    lblResultat.Text = Convert.ToString(calculadora.getResultado());
                 }
-                //buscarOperador sirve para encontrar el simbolo en char del operador a utilizado.
-                buscarOperador();
+             
                
                 operacionFlag = true;
-                comienzo = true;
+                comienzo = false;
                 cambiarOperador = false;
+            
+        }
+       
+        private void botonesNumero_MouseUp(object sender, MouseEventArgs e)
+        {
+            Button botonNumero = (Button)sender;
+            cogerValorBoton(int.Parse(botonNumero.Text));
 
-            } else
+            if (operacionFlag)
             {
-                lblOperacion.Text = "0";
-                lblResultat.Text = "0";
+                //si la respuesta es afirmativa activo otra bandera
+                operacionFlag2 = true;
             }
 
-        }
-        private void mensajes(int opcion)
-        {
-            switch (opcion)
-            {
-                case 1:
-                    mensaje = "Error!";
-                    break;
-            }
-            error = true;
-            lblResultat.Text = mensaje;
-        }
-
-        //Botones Operaciones                       <------------------------------------------
-
-        private void bC_MouseUp(object sender, MouseEventArgs e)
-        {
-            lblResultat.Text = "0";
             this.KeyPreview = true;
         }
+        private void botonesOperaciones_MouseUp(object sender, MouseEventArgs e)
+        {
+            Button botones = ((Button)sender);
+            int iOperador = 0;
 
-        private void bBorrar_MouseUp(object sender, MouseEventArgs e)
-        {
-            borrar1pos();
-            this.KeyPreview = true;
-        }
-        private void bDividir_MouseUp(object sender, MouseEventArgs e)
-        {
             if (final)
             {
                 final = false;
             }
+            iOperador = operadorEnInt(botones.Text);
             this.KeyPreview = true;
-            cogerOperador(111);
+            cogerOperador(iOperador);
+            
             if (operacionFlag)
             {
-                lblOperacion.Text = Convert.ToString(num1) + Convert.ToString(operador);
+                lblOperacion.Text = Convert.ToString(calculadora.getOperante1()) + Convert.ToString(calculadora.getOperador());
                 //compruebo si es una operacion nueva, antes de hacerla debe coger un valor 
                 if (operacionFlag2)
                 {
                     //si ya se ha hecho una operación pero se quiere continuar haciendo otra, operacionFlag2 estará en true
-                    num1 = resultado;
+                    calculadora.setOperante1(calculadora.getResultado());
+                    calculadora.setOperante2(float.Parse(lblResultat.Text));
+                    lblOperacion.Text += Convert.ToString(calculadora.getOperante2());
                     hacerOperacion();
                 }
 
             }
             else
             {
-                lblOperacion.Text = Convert.ToString(num1) + Convert.ToString(operador);
+                lblOperacion.Text = Convert.ToString(calculadora.getOperante1()) + Convert.ToString(calculadora.getOperador());
             }
+            comienzo = false;
         }
-        private void bMultiplicacion_MouseUp(object sender, MouseEventArgs e)
-        {
-            if (final)
-            {
-                final = false;
-            }
-            this.KeyPreview = true;
-            cogerOperador(106);
-            if (operacionFlag)
-            {
-                lblOperacion.Text = Convert.ToString(num1) + Convert.ToString(operador);
-                //compruebo si es una operacion nueva, antes de hacerla debe coger un valor 
-                if (operacionFlag2)
-                {
-                    num1 = resultado;
-                    hacerOperacion();
-                }
-
-            }
-            else
-            {
-                lblOperacion.Text = Convert.ToString(num1) + Convert.ToString(operador);
-            }
-        }
-        private void bResta_MouseUp(object sender, MouseEventArgs e)
-        {
-            if (final)
-            {
-                final = false;
-            }
-            this.KeyPreview = true;
-            cogerOperador(109);
-            if (operacionFlag)
-            {
-                lblOperacion.Text = Convert.ToString(num1) + Convert.ToString(operador);
-                //compruebo si es una operacion nueva, antes de hacerla debe coger un valor 
-                if (operacionFlag2)
-                {
-                    num1 = resultado;
-                    hacerOperacion();
-                }
-
-            }
-            else
-            {
-                lblOperacion.Text = Convert.ToString(num1) + Convert.ToString(operador);
-            }
-        }
-        private void bSuma_MouseUp(object sender, MouseEventArgs e)
-        {
-            if (final)
-            {
-                final = false;
-            }
-            this.KeyPreview = true;
-            cogerOperador(107);
-            if (operacionFlag)
-            {
-                lblOperacion.Text = Convert.ToString(num1) + Convert.ToString(operador);
-                //compruebo si es una operacion nueva, antes de hacerla debe coger un valor 
-                if (operacionFlag2)
-                {
-                    num1 = resultado;
-                    hacerOperacion();
-                }
-
-            }
-            else
-            {
-                lblOperacion.Text = Convert.ToString(num1) + Convert.ToString(operador);
-            }
-        }
+        
+        #region botonesAccionesYComa
         private void bIgual_MouseUp(object sender, MouseEventArgs e)
         {
             if (!final)
             {
                 // si final aun no está en true quiere decir que es la primera vez que se aprieta el igual
+                calculadora.setOperante2(float.Parse(lblResultat.Text));
+                lblOperacion.Text += Convert.ToString(calculadora.getOperante2());
                 hacerOperacion();
-                num1 = resultado;
+                calculadora.setOperante1(calculadora.getResultado());
                 operacionFlag = false;
                 operacionFlag2 = false;
                 final = true;
@@ -320,27 +287,40 @@ namespace Calculadora
             else
             {
                 //la segunda vez se reiniciaran todos los valores de la calculadora. 
-                lblOperacion.Text = "0";
-                lblResultat.Text = "0";
+                calculadora.setResultado(0);
+                calculadora.setOperante2(0);
+                calculadora.setOperante1(0);
                 operacionFlag = false;
                 operacionFlag2 = false;
                 final = false;
                 coma = false;
-                num1 = 0;
-                num2 = 0;
+                lblOperacion.Text = Convert.ToString(calculadora.getResultado());
+                lblResultat.Text = Convert.ToString(calculadora.getResultado());
 
             }
         }
         private void bCE_MouseUp(object sender, MouseEventArgs e)
         {
-            lblOperacion.Text = "0";
             lblResultat.Text = "0";
+            this.KeyPreview = true;
+        }
+
+        private void bBorrar_MouseUp(object sender, MouseEventArgs e)
+        {
+            lblResultat.Text = borrarUnaPosicion();
+            this.KeyPreview = true;
+        }
+        private void bC_MouseUp(object sender, MouseEventArgs e)
+        {
+            calculadora.setResultado(0);
+            calculadora.setOperante2(0);
+            calculadora.setOperante1(0);
             operacionFlag = false;
             operacionFlag2 = false;
             final = false;
             coma = false;
-            num1 = 0;
-            num2 = 0;
+            lblOperacion.Text = Convert.ToString(calculadora.getResultado());
+            lblResultat.Text = Convert.ToString(calculadora.getResultado());
             this.KeyPreview = true;
         }
         private void bComa_MouseUp(object sender, MouseEventArgs e)
@@ -353,24 +333,14 @@ namespace Calculadora
                 this.KeyPreview = true;
             }
         }
+        #endregion
 
-        //Botones numeros                                           <------------------------------------------
-        private void buttonsNumero_MouseUp(object sender, MouseEventArgs e)
-        {
-           Button botonNumero = (Button)sender;
-            cogerBValor(int.Parse(botonNumero.Text));
- 
-            if (operacionFlag)
-            {
-                //si la respuesta es afirmativa activo otra bandera
-                operacionFlag2 = true;
-            }
-
-            this.KeyPreview = true;
-        }
+        
        
-        private void buscarOperador()
+        private void buscarOperador( int operacion)
          {
+            char operador = ' ';
+
              switch (operacion)
              {
                  case 107:
@@ -386,74 +356,50 @@ namespace Calculadora
                     operador = '/';
                     break;
              }
+            calculadora.setOperador(Convert.ToString(operador));
         }
-     
-        private void borrar()
+
+        private String borrarUnaPosicion()
         {
+
             String cambioLabel = "";
 
-            if((lblOperacion.Text.Length == 1 || comienzo == true))
-            {
-                lblOperacion.Text = "0";
-            }
-            if ((lblResultat.Text.Length == 1 || comienzo == true)) 
-            {
-                lblResultat.Text = "0";
-                
-            }
-            else if (lblOperacion.Text.Length > 1 && operacionFlag == true)  
-            {
-
-                lblOperacion.Text = lblOperacion.Text.Substring(0, lblOperacion.Text.Length - 1);
-                
-               
-            }
-            else if(lblResultat.Text.Length >= 1)
-            {
-                if (lblResultat.Text.Length - 1 == 0)
-                {
-                    lblResultat.Text = "0";
-                }
-                else
-                {
-                    lblResultat.Text = lblResultat.Text.Substring(0, lblResultat.Text.Length - 1);
-                }
-            }
-            
-        }
-        private void borrar1pos()
-        {
             if (lblResultat.Text.Length == 1 && !final)
             {
-                lblResultat.Text = "0";
+                cambioLabel = "0";
 
             }
             else if (lblResultat.Text.Length > 1 && !final)
             {
+                if (lblResultat.Text.Substring(lblResultat.Text.Length - 1 , 1) == ",")
+                {
+                    coma = false;
+                }
+                cambioLabel = lblResultat.Text.Substring(0, lblResultat.Text.Length - 1);
 
-                lblResultat.Text = lblResultat.Text.Substring(0, lblResultat.Text.Length - 1);
-
-
+                
             }
+            return cambioLabel; 
         }
         private void cogerOperador (int valor)
         {
+            int operacion = 0;
             if (cambiarOperador)
             {
                 //comprobar si ya hay un operador en uso y hacer el cambio.
                 operacion = valor;
-                borrar();
+                borrarUnaPosicion();
 
             }
             else
             {
                 //en caso de no haber se coge directamente el que se haya introducido.
-                operaciones(valor);
+                operacion = operacionesTeclado(valor);
 
             }
-            buscarOperador();
+            buscarOperador(operacion);
         }
-        private void cogerValor(int valor)
+        private void cogerValorTeclado(int valor)
         {
             if (lblResultat.Text == "0")
             {
@@ -461,12 +407,17 @@ namespace Calculadora
             }
             else
             {
+                if (comienzo == false)
+                {
+                    lblResultat.Text = "";
+                    comienzo = true;
+                }
                 lblResultat.Text += Convert.ToString(valor - ((int)Keys.NumPad0));
             }
             
            
         }
-        private void cogerBValor(int bNum)
+        private void cogerValorBoton(int bNum)
         {
             if (lblResultat.Text == "0")
             {
@@ -474,24 +425,32 @@ namespace Calculadora
             }
             else
             {
+                if (comienzo == false)
+                {
+                    lblResultat.Text = "";
+                }
                 lblResultat.Text += Convert.ToString(bNum);
             }
         }
-
-        private void operacionesB (int valor)
+        private int operadorEnInt(String operador)
         {
-            this.KeyPreview = true;
-            cogerOperador(valor);
-            lblOperacion.Text += Convert.ToString(operador);
-            if (operacionFlag2)
+            int iOperador = 0;
+            switch (operador)
             {
-                hacerOperacion();
-
-                operacionFlag2 = false;
+                case "+":
+                    iOperador = 107;
+                    break;
+                case "-":
+                    iOperador = 109;
+                    break;
+                case "*":
+                    iOperador = 106;
+                    break;
+                case "/":
+                    iOperador = 111;
+                    break;
             }
-            coma = false;
+            return iOperador;
         }
-
-        
     }
 }
